@@ -28,4 +28,13 @@ public class EmployeeService {
         }
 
     }
+
+    public String updateEmployee(EmployeeDTO employeeDTO){
+        if (employeeRepo.existsById(employeeDTO.getEmpID())){
+            employeeRepo.save(modelMapper.map(employeeDTO, Employee.class));
+            return VarList.RESP_SUCCESS;
+        }else {
+            return VarList.RESP_DATA_NOT_FOUND;
+        }
+    }
 }
