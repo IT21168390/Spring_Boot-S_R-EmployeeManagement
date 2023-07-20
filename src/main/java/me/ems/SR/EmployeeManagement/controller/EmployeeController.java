@@ -122,7 +122,7 @@ public class EmployeeController {
     public ResponseEntity deleteEmployee(@PathVariable int empID){
         try{
             String response = employeeService.deleteEmployee(empID);
-            if (response.equals(11)){
+            if (response.equals("11")){
                 responseDTO.setCode(VarList.RESP_SUCCESS);
                 responseDTO.setMessage("Success");
                 responseDTO.setContent(null);
