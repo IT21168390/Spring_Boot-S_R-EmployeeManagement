@@ -117,4 +117,29 @@ public class EmployeeController {
             return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @DeleteMapping("/deleteEmployee/{empID}")
+    public ResponseEntity deleteEmployee(@PathVariable int empID){
+        try{
+            String response = employeeService.deleteEmployee(empID);
+            if (response.equals(11)){
+                responseDTO.setCode(VarList.RESP_SUCCESS);
+                responseDTO.setMessage("Success");
+                responseDTO.setContent(null);
+                return new ResponseEntity<>(responseDTO, HttpStatus.ACCEPTED);
+            }
+            else {
+                responseDTO.setCode(VarList.RESP_DATA_NOT_FOUND);
+                responseDTO.setMessage("No such employee with that ID");
+                responseDTO.setContent(null);
+                return new ResponseEntity<>(responseDTO, HttpStatus.BAD_REQUEST);
+            }
+        }
+        catch (Exception excp){
+            responseDTO.setCode(VarList.RESP_ERROR);
+            responseDTO.setMessage(excp.getMessage());
+            responseDTO.setContent(null);
+            return new ResponseEntity<>(responseDTO, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }
